@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Uncial+Antiqua&display=swap');
+
+:root {
+  /* Medieval Light Theme - High Contrast */
+  --color-parchment-light: #f4ecd8;
+  --color-parchment: #e8dcc0;
+  --color-parchment-dark: #d4c4a0;
+  --color-ink-black: #1a0f05;
+  --color-ink-brown: #2a1a0a;
+  --color-ink-sepia: #3e2723;
+  --color-gold-dark: #8b6914;
+  --color-gold: #b8860b;
+  --color-gold-light: #daa520;
+  --color-rust: #8b4513;
+  --color-blood: #5c0a0a;
+
+  /* Typography */
+  --font-heading: 'Cinzel', serif;
+  --font-body: 'Cormorant Garamond', serif;
+  --font-accent: 'Uncial Antiqua', cursive;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 8rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-parchment);
+  background-image: url('/assets/texture_light.png');
+  background-size: cover;
+  background-attachment: fixed;
+  color: var(--color-ink-brown);
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  color: var(--color-ink-black);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 900;
+}
+
+h1 {
+  font-size: 4rem;
+}
+
+h2 {
+  font-size: 2.5rem;
+  border-bottom: 3px solid var(--color-gold-dark);
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}
+
+a {
+  color: var(--color-gold-dark);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 700;
+}
+
+a:hover {
+  color: var(--color-rust);
+  text-decoration: underline;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-parchment-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-gold-dark);
+  border: 2px solid var(--color-parchment);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-rust);
+}
+
+/* Utility Classes */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.text-center {
+  text-align: center;
+}

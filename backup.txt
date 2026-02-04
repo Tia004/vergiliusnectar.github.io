@@ -1,0 +1,806 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Uncial+Antiqua&display=swap');
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  /* Medieval Light Theme - High Contrast */
+  --color-parchment-light: #f4ecd8;
+  --color-parchment: #e8dcc0;
+  --color-parchment-dark: #d4c4a0;
+  --color-ink-black: #1a0f05;
+  --color-ink-brown: #2a1a0a;
+  --color-ink-sepia: #3e2723;
+  --color-gold-dark: #8b6914;
+  --color-gold: #b8860b;
+  --color-gold-light: #daa520;
+  --color-rust: #8b4513;
+  --color-blood: #5c0a0a;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+  /* Typography */
+  --font-heading: 'Cinzel', serif;
+  --font-body: 'Cormorant Garamond', serif;
+  --font-accent: 'Uncial Antiqua', cursive;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 8rem;
+}
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+html {
+  scroll-behavior: smooth;
+}
+a:hover {
+  color: #535bf2;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--color-parchment);
+  background-image: url('/assets/texture_light.png');
+  background-size: cover;
+  background-attachment: fixed;
+  color: var(--color-ink-brown);
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--color-ink-black);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 900;
+}
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+h1 { font-size: 4rem; }
+h2 { 
+  font-size: 2.5rem;
+  border-bottom: 3px solid var(--color-gold-dark);
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}
+button:hover {
+  border-color: #646cff;
+a {
+  color: var(--color-gold-dark);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 700;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+a:hover {
+  color: var(--color-rust);
+  text-decoration: underline;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-parchment-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-gold-dark);
+  border: 2px solid var(--color-parchment);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-rust);
+}
+/* Utility Classes */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+.text-center { text-align: center; }
+}
+
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
+import { useState, useEffect } from 'react';
+import './App.css';
+function App() {
+  const [count, setCount] = useState(0)
+  const [scrollY, setScrollY] = useState(0);
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+  return (
+    <>
+      <div>
+        <a href="https://vite.dev" target="_blank">
+          <img src={viteLogo} className="logo" alt="Vite logo" />
+        </a>
+        <a href="https://react.dev" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
+      </div>
+      <h1>Vite + React</h1>
+      <div className="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          count is {count}
+        </button>
+        <p>
+          Edit <code>src/App.jsx</code> and save to test HMR
+        </p>
+      </div>
+      <p className="read-the-docs">
+        Click on the Vite and React logos to learn more
+      </p>
+    </>
+  )
+    <div className="app-container">
+      <header className={`main-header ${scrollY > 50 ? 'scrolled' : ''}`}>
+        {/* Logo Banner/Standard - Attached to Navbar */}
+        <div className="logo-banner" onClick={scrollToTop}>
+          <div className="logo-banner-content">
+            <img src="/logo_new.png" alt="Vergilius Nectar" className="logo" />
+          </div>
+        </div>
+        
+        <div className="header-content">
+          <nav className="main-nav">
+            <a href="#product">Il Nettare</a>
+            <a href="#about">La Leggenda</a>
+          </nav>
+        </div>
+      </header>
+      <main>
+        <section id="hero" className="hero-section">
+          <div className="hero-content">
+            <h1 className="hero-title">Vergilius Nectar</h1>
+            <p className="hero-subtitle">L'Antico Idromele di Mantova</p>
+          </div>
+          
+          <div id="product" className="product-card-hero">
+            <div className="product-card-content">
+              <img src="/product.png" alt="Vergilius Nectar Bottle" className="product-bottle-hero" />
+              
+              <div className="product-info-hero">
+                <h3>Idromele Artigianale</h3>
+                <p>
+                  Un elisir dorato, ricco di sfumature floreali e note di miele selvatico. 
+                  Fermentato naturalmente, non filtrato.
+                </p>
+                
+                <div className="product-price">€24,00</div>
+                
+                <div style={{ marginTop: '1.5rem' }}>
+                  <a 
+                    href="https://vergiliusnectar.it/products/idromele-artigianale-non-filtrato-bottiglia-da-0-7l" 
+                    className="cta-button primary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Acquista Ora
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="about" className="about-section">
+          <div className="parchment-container">
+            <div className="parchment-content">
+              <h2>Cronache di Virgilio</h2>
+              <p>
+                "Nelle terre nebbiose di Mantova, ove il Mincio scorre lento, 
+                i saggi custodiscono il segreto del nettare d'oro."
+              </p>
+              <br />
+              <p>
+                Il nostro idromele non è semplice bevanda, ma un ponte verso un passato dimenticato.
+                Fermentato naturalmente, non filtrato, crudo come la terra da cui nasce.
+                Un tributo al Sommo Poeta e alle antiche tradizioni che rifiutano la modernità sterile.
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer className="main-footer">
+        <div className="container">
+          <img src="/logo_new.png" alt="Logo" style={{ height: '80px', marginBottom: '1rem' }} />
+          <p>&copy; {new Date().getFullYear()} Vergilius Nectar. Forgiato a Mantova.</p>
+          <p className="footer-links" style={{ marginTop: '1rem' }}>
+            <a href="https://vergiliusnectar.it/policies/privacy-policy">Privacy Policy</a>
+            <a href="https://vergiliusnectar.it/policies/terms-of-service">Terms of Service</a>
+          </p>
+        </div>
+      </footer>
+    </div>
+  );
+}
+export default App
+export default App;
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+/* App.css - Refined Medieval Tavern Theme */
+.app-container {
+  min-height: 100vh;
+  background-image: url('/assets/tavern_bg.png');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  color: #f4e8d0;
+  position: relative;
+}
+.app-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(20, 10, 0, 0.6);
+  z-index: 0;
+}
+.app-container>* {
+  position: relative;
+  z-index: 1;
+}
+/* Logo Banner/Standard - Overflowing from Navbar */
+.logo-banner {
+  position: absolute;
+  top: 0;
+  left: 2rem;
+  width: 75px;
+  height: 135px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  z-index: 3;
+}
+/* Banner border layer */
+.logo-banner::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% + 2px);
+  background: #8b4513;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 92%, 50% 100%, 0% 92%);
+  z-index: -1;
+}
+/* Banner content */
+.logo-banner>* {
+  position: relative;
+  z-index: 2;
+}
+.logo-banner-content {
+  width: 100%;
+  height: 100%;
+  background-image: url('/assets/fabric_banner.png');
+  background-size: cover;
+  background-color: #e8d4b0;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 92%, 50% 100%, 0% 92%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.3rem;
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.8),
+    inset 0 0 0 2px rgba(139, 69, 19, 0.4);
+  position: relative;
+  z-index: 1;
+}
+.logo-banner-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(232, 212, 176, 0.3) 0%, rgba(212, 196, 160, 0.5) 100%);
+  pointer-events: none;
+}
+.logo-banner:hover {
+  transform: scale(1.05);
+}
+.logo-banner .logo {
+  height: 65px;
+  filter: none;
+  position: relative;
+  z-index: 1;
+}
+/* Custom Navbar - Narrower with Longer Triangular Ends */
+.main-header {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 85%;
+  max-width: 800px;
+  padding: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  overflow: visible;
+}
+/* Navbar border layer */
+.main-header::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  width: calc(100% + 8px);
+  height: calc(100% + 8px);
+  background: #2a2a2a;
+  clip-path: polygon(0% 50%,
+      3% 0%,
+      97% 0%,
+      100% 50%,
+      97% 100%,
+      3% 100%);
+  z-index: -1;
+  pointer-events: none;
+}
+.header-content {
+  position: relative;
+  background-image: url('/assets/wood_texture.png');
+  background-size: cover;
+  padding: 0.5rem 3rem;
+  min-height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  overflow: visible;
+  clip-path: polygon(0% 50%,
+      3% 0%,
+      97% 0%,
+      100% 50%,
+      97% 100%,
+      3% 100%);
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.8);
+}
+.header-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(100, 80, 60, 0.6);
+  clip-path: polygon(0% 50%,
+      3.3% 3%,
+      96.7% 3%,
+      100% 50%,
+      96.7% 97%,
+      3.3% 97%);
+  pointer-events: none;
+  z-index: 0;
+}
+.header-content::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(60, 40, 20, 0.3) 0%, rgba(40, 25, 10, 0.5) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+.main-nav {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+.main-nav a {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #f4e8d0;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  transition: all 0.3s ease;
+  padding: 0.3rem 1rem;
+}
+.main-nav a:hover {
+  color: #ffb84d;
+  text-shadow: 0 0 10px rgba(255, 184, 77, 0.6);
+  text-decoration: none;
+}
+/* Buttons - Wood and Iron Style */
+.cta-button {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background-image: url('/assets/wood_texture.png');
+  background-size: cover;
+  border: 3px solid #2a2a2a;
+  box-shadow:
+    inset 0 0 0 2px rgba(80, 60, 40, 1),
+    3px 3px 0 rgba(0, 0, 0, 0.5);
+  color: #f4e8d0;
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  position: relative;
+}
+.cta-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(60, 40, 20, 0.2) 0%, rgba(40, 25, 10, 0.4) 100%);
+}
+.cta-button:hover {
+  transform: translate(2px, 2px);
+  box-shadow:
+    inset 0 0 0 2px rgba(100, 80, 60, 1),
+    1px 1px 0 rgba(0, 0, 0, 0.5);
+  color: #ffb84d;
+  text-decoration: none;
+}
+.cta-button.primary {
+  font-size: 1.3rem;
+  padding: 1.2rem 3rem;
+  box-shadow:
+    inset 0 0 0 2px rgba(100, 80, 60, 1),
+    5px 5px 0 rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(255, 140, 0, 0.3);
+}
+/* Hero Section */
+.hero-section {
+  min-height: 100vh;
+  padding: calc(120px + var(--spacing-lg)) var(--spacing-md) var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.hero-content {
+  max-width: 900px;
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+}
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+.hero-title {
+  font-size: 5rem;
+  color: #ffb84d;
+  margin-bottom: var(--spacing-sm);
+  text-shadow:
+    3px 3px 0 rgba(0, 0, 0, 0.8),
+    0 0 30px rgba(255, 140, 0, 0.5);
+  line-height: 1.1;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+.hero-subtitle {
+  font-size: 2rem;
+  color: #e8d4b0;
+  margin-bottom: var(--spacing-md);
+  font-style: italic;
+  font-weight: 600;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.9);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Medieval Product Card - Stone/Iron Frame */
+.product-card-hero {
+  max-width: 900px;
+  width: 100%;
+  background: linear-gradient(135deg, #2a2520 0%, #1a1510 100%);
+  border: 8px solid #1a1a1a;
+  padding: var(--spacing-lg);
+  position: relative;
+  box-shadow:
+    0 15px 50px rgba(0, 0, 0, 0.9),
+    inset 0 0 0 2px #404040,
+    inset 0 0 0 6px #2a2a2a,
+    inset 0 0 0 8px #505050;
+}
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+.product-card-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(60, 50, 40, 0.2) 50%, transparent 100%),
+    url('/assets/iron_texture.png');
+  background-size: 100% 100%, 50px 50px;
+  opacity: 0.3;
+  z-index: 0;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+/* Decorative Corner Rivets */
+.product-card-hero::after {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  width: calc(100% - 30px);
+  height: calc(100% - 30px);
+  border: 1px solid rgba(100, 90, 80, 0.4);
+  pointer-events: none;
+  z-index: 2;
+}
+.card {
+  padding: 2em;
+.product-card-content {
+  display: flex;
+  gap: var(--spacing-lg);
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.read-the-docs {
+  color: #888;
+.product-bottle-hero {
+  max-height: 450px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.9));
+}
+.product-info-hero {
+  flex: 1;
+  text-align: left;
+}
+.product-info-hero h3 {
+  font-size: 2.8rem;
+  color: #ffb84d;
+  margin-bottom: var(--spacing-sm);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+  border-bottom: 3px solid rgba(255, 184, 77, 0.5);
+  padding-bottom: 0.5rem;
+}
+.product-info-hero p {
+  font-size: 1.3rem;
+  color: #e8d4b0;
+  line-height: 1.8;
+  margin-bottom: var(--spacing-md);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+.product-price {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #ffb84d;
+  font-family: var(--font-heading);
+  margin: var(--spacing-sm) 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+}
+/* About Section - Parchment on Dark Background */
+.about-section {
+  padding: var(--spacing-xl) var(--spacing-md);
+  background: rgba(10, 5, 0, 0.8);
+}
+.parchment-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+  background: #f9f5ed;
+  border: 6px solid #1a1a1a;
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.9),
+    inset 0 0 0 3px rgba(139, 69, 19, 0.3);
+}
+.parchment-content h2 {
+  color: #2a1a0a;
+  margin-bottom: var(--spacing-md);
+  text-align: center;
+  font-size: 3rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+.parchment-content p {
+  font-size: 1.5rem;
+  line-height: 1.9;
+  color: #1a0f05;
+  font-weight: 700;
+  text-align: justify;
+  margin-bottom: var(--spacing-sm);
+}
+/* Footer */
+.main-footer {
+  background: rgba(10, 5, 0, 0.95);
+  color: #d4c4a0;
+  padding: var(--spacing-lg) 0;
+  text-align: center;
+  border-top: 3px solid #3a2a1a;
+}
+.main-footer a {
+  color: #ffb84d;
+  margin: 0 var(--spacing-sm);
+}
+.main-footer a:hover {
+  color: #ffd699;
+}
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 3rem;
+  }
+  .hero-subtitle {
+    font-size: 1.5rem;
+  }
+  .logo-banner {
+    width: 140px;
+    height: 180px;
+  }
+  .logo-banner .logo {
+    height: 100px;
+  }
+  .main-header {
+    width: 95%;
+    top: 170px;
+  }
+  .header-content {
+    padding: 0.5rem 2rem;
+    gap: 2rem;
+  }
+  .main-nav {
+    gap: 1.5rem;
+  }
+  .main-nav a {
+    font-size: 0.85rem;
+  }
+  .product-card-content {
+    flex-direction: column;
+  }
+  .product-bottle-hero {
+    max-height: 350px;
+  }
+  .product-info-hero {
+    text-align: center;
+  }
+  .hero-section {
+    padding-top: calc(200px + var(--spacing-lg));
+  }
+}
+import { useEffect, useRef } from 'react';
+const Embers = () => {
+  const canvasRef = useRef(null);
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    let animationFrameId;
+    let particles = [];
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = canvas.height + Math.random() * 100;
+        this.size = Math.random() * 3 + 1;
+        this.speedY = Math.random() * 1 + 0.5;
+        this.speedX = (Math.random() - 0.5) * 0.5;
+        this.opacity = Math.random() * 0.5 + 0.2;
+        this.fade = Math.random() * 0.005 + 0.002;
+        this.color = `rgba(255, ${Math.floor(Math.random() * 100 + 50)}, 0,`;
+      }
+      update() {
+        this.y -= this.speedY;
+        this.x += this.speedX;
+        this.opacity -= this.fade;
+        if (this.opacity <= 0 || this.y < -50) {
+          this.reset();
+        }
+      }
+      draw() {
+        ctx.fillStyle = this.color + this.opacity + ')';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    const initParticles = () => {
+      const particleCount = Math.min(window.innerWidth / 10, 100); // Adjust density
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+    };
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      animationFrameId = requestAnimationFrame(animate);
+    };
+    initParticles();
+    animate();
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        pointerEvents: 'none',
+        zIndex: 0, // Behind content but in front of background
+      }}
+    />
+  );
+};
+export default Embers;
