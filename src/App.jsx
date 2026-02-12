@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
+import Atropos from 'atropos/react';
+import 'atropos/css';
 import './App.css';
 
 function App() {
@@ -216,19 +218,41 @@ function App() {
 
             <main>
                 <section id="hero" className="hero-section">
-                    <div className="quest-board-container">
-                        <div className="quest-board-content">
-                            <h1 className="hero-title-quest">
-                                Benvenuti nella Dimora del Vergilius Nectar
-                            </h1>
-                            <p className="hero-description-quest">
-                                Oltrepassate la soglia e scoprite l'elisir degli antichi dei. <br />
-                                Qui, dove il tempo si ferma e la leggenda prende vita, <br />
-                                custodiamo il segreto del miele dorato, forgiato nel fuoco e nella passione. <br />
-                                Un nettare puro, crudo e selvaggio, attende solo chi ha il coraggio di assaporare la storia.
-                            </p>
-                        </div>
+                    <div className="hero-perspective-container">
+                        <Atropos
+                            className="hero-relic-atropos"
+                            activeOffset={40}
+                            shadowScale={1.05}
+                            onEnter={() => console.log('Enter')}
+                            onLeave={() => console.log('Leave')}
+                            onRotate={(x, y) => console.log('Rotate', x, y)}
+                        >
+                            <div className="hero-relic-banner">
+                                <div className="relic-content" data-atropos-offset="5">
+                                    <h1 className="relic-title">Vergilius Nectar</h1>
+                                    <p className="relic-subtitle">
+                                        Oltrepassate la soglia e scoprite l'elisir degli antichi dei. <br />
+                                        Qui, dove il tempo si ferma e la leggenda prende vita, <br />
+                                        custodiamo il segreto del miele dorato, forgiato nel fuoco e nella passione. <br />
+                                        Un nettare puro, crudo e selvaggio, attende solo chi ha il coraggio di assaporare la storia.
+                                    </p>
+
+                                </div>
+                            </div>
+                        </Atropos>
                     </div>
+                    <a href="#locanda" className="scroll-sign-container">
+                        <img src="/assets/ScorriGiu.png" alt="Scorri Giù" className="scroll-sign-image" />
+                        <img src="/assets/ScorriGiu_fuoco.png" alt="Scorri Giù" className="scroll-sign-image-fire" />
+                        <span className="fire-particle fire-1"></span>
+                        <span className="fire-particle fire-2"></span>
+                        <span className="fire-particle fire-3"></span>
+                        <span className="fire-particle fire-4"></span>
+                        <span className="fire-particle fire-5"></span>
+                        <span className="fire-particle fire-6"></span>
+                        <span className="smoke-particle smoke-1"></span>
+                        <span className="smoke-particle smoke-2"></span>
+                    </a>
                 </section>
 
                 <section id="locanda" className="locanda-section locanda-background">

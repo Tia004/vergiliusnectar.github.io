@@ -33,13 +33,15 @@ body {
 
 /* Dark vignette overlay */
 .app-container::before {
+    width: 100vw;
+    height: 100vh;
     content: '';
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.6) 100%);
+    background-color: rgba(0, 0, 0, 0.6);
     z-index: 1;
     pointer-events: none;
 }
@@ -140,8 +142,8 @@ body {
     flex-direction: row;
     align-items: flex-start;
     justify-content: center;
-    gap: 3rem;
-    padding: 0 2rem;
+    gap: 2rem;
+    padding: 0 1rem;
     margin-top: -1rem;
     position: relative;
     z-index: 1000;
@@ -157,7 +159,7 @@ body {
 }
 
 .logo-stendardo {
-    height: 350px;
+    height: 20vh;
     width: auto;
     filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.8));
     object-fit: contain;
@@ -166,7 +168,7 @@ body {
 /* Navigation Blocks - inline with logo */
 .nav-blocks {
     display: flex;
-    gap: 2.5rem;
+    gap: 2rem;
     align-items: center;
     z-index: 1001;
 }
@@ -183,7 +185,7 @@ body {
 }
 
 .nav-sign-image {
-    height: 220px;
+    height: 130px;
     width: auto;
     object-fit: contain;
     transition: all 0.3s ease;
@@ -194,7 +196,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    height: 220px;
+    height: 130px;
     width: auto;
     object-fit: contain;
     opacity: 0;
@@ -350,7 +352,7 @@ body {
 
     100% {
         opacity: 0;
-        transform: translate(0, -70px) scale(0.2);
+        transform: translate(0, -42px) scale(0.2);
     }
 }
 
@@ -371,7 +373,7 @@ body {
 
     100% {
         opacity: 0;
-        transform: translate(50px, -60px) scale(0.2);
+        transform: translate(30px, -36px) scale(0.2);
     }
 }
 
@@ -392,7 +394,7 @@ body {
 
     100% {
         opacity: 0;
-        transform: translate(-50px, -60px) scale(0.2);
+        transform: translate(-30px, -36px) scale(0.2);
     }
 }
 
@@ -413,7 +415,7 @@ body {
 
     100% {
         opacity: 0;
-        transform: translate(60px, -20px) scale(0.3);
+        transform: translate(36px, -12px) scale(0.3);
     }
 }
 
@@ -434,7 +436,7 @@ body {
 
     100% {
         opacity: 0;
-        transform: translate(-60px, -20px) scale(0.3);
+        transform: translate(-36px, -12px) scale(0.3);
     }
 }
 
@@ -455,7 +457,7 @@ body {
 
     100% {
         opacity: 0;
-        transform: translate(10px, 40px) scale(0.5);
+        transform: translate(6px, 24px) scale(0.5);
     }
 }
 
@@ -480,7 +482,7 @@ body {
 
     100% {
         opacity: 0;
-        transform: translateY(-80px) scale(0.3);
+        transform: translateY(-48px) scale(0.3);
     }
 }
 
@@ -496,12 +498,12 @@ body {
 
     60% {
         opacity: 0.4;
-        transform: translateY(-60px) scale(1.5);
+        transform: translateY(-36px) scale(1.5);
     }
 
     100% {
         opacity: 0;
-        transform: translateY(-100px) scale(2);
+        transform: translateY(-60px) scale(2);
     }
 }
 
@@ -558,7 +560,7 @@ body {
 }
 
 .scroll-btn-image {
-    height: 220px;
+    height: 15vh;
     width: auto;
     object-fit: contain;
     transition: all 0.3s ease;
@@ -568,9 +570,9 @@ body {
 /* Fire version - overlaid on top */
 .scroll-btn-image-fire {
     position: absolute;
-    top: 0;
-    left: 0;
-    height: 220px;
+    bottom: 0;
+    right: 0;
+    height: 15vh;
     width: auto;
     object-fit: contain;
     opacity: 0;
@@ -632,6 +634,9 @@ body {
     /* Pull up significantly */
     /* Slight pull up */
     position: relative;
+    /* Darken background */
+    width: 100%;
+    /* Ensure full width for background */
 }
 
 .hero-content-centered {
@@ -3396,4 +3401,415 @@ body {
         height: 12vh !important;
         margin-bottom: 0.5rem !important;
     }
+}
+
+/* 3D Hero Relic Banner */
+/* Atropos Container Wrapper */
+.hero-perspective-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+    margin-top: 5vh;
+    /* Push down */
+}
+
+.hero-relic-atropos {
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+    background: transparent;
+    /* Let the inner banner handle bg */
+}
+
+/* The Relic Banner Itself */
+.hero-relic-banner {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    padding: 5rem 3rem;
+    background: #1a0f0a;
+    background-image: url('/assets/woodTexture.png');
+    background-size: cover;
+    background-position: center;
+
+    /* Shape & Border */
+    border-radius: 10px;
+    /* Sharp corners for metal look */
+    border: 1px solid #5c4033;
+    /* Dark wood border */
+    outline: 4px double #d4af37;
+    /* Gold double outline */
+    outline-offset: -12px;
+
+    /* Shadows for Depth */
+    box-shadow:
+        /* Drop Shadow - Deep & Dramatic */
+        0 30px 60px rgba(0, 0, 0, 0.8),
+        /* Inner Shadow for thickness */
+        inset 0 0 80px rgba(0, 0, 0, 0.9),
+        /* Edge Highlight */
+        inset 1px 1px 2px rgba(255, 255, 255, 0.1);
+
+    /* Atropos handles transforms now */
+    text-align: center;
+    color: #f4e8d0;
+    overflow: hidden;
+    cursor: default;
+    /* Or grab if interactive */
+}
+
+/* Metallic Corner Decorations (Pseudo-elements) */
+.hero-relic-banner::before,
+.hero-relic-banner::after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 3px solid #d4af37;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.hero-relic-banner::before {
+    top: 15px;
+    left: 15px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.hero-relic-banner::after {
+    bottom: 15px;
+    right: 15px;
+    border-left: none;
+    border-top: none;
+}
+
+/* Content Layer - Popped Out with Atropos data-offset */
+.relic-content {
+    /* transform handled by data-atropos-offset */
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 10px 20px rgba(0, 0, 0, 0.8);
+    pointer-events: none;
+    /* Pass mouse events to banner for tilt */
+}
+
+.relic-title {
+    font-family: 'Cinzel', serif;
+    font-size: 4.5rem;
+    /* Large */
+    margin: 0 0 1rem 0;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #eebb55;
+    /* Gold */
+
+    /* Metal Text Effect */
+    background: linear-gradient(to bottom, #ffeebb 0%, #d4af37 50%, #906210 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 2px 0px rgba(0, 0, 0, 0.8));
+    line-height: 1.1;
+}
+
+.relic-subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: #dcd0ba;
+    /* Pale parchment */
+    max-width: 800px;
+    margin: 0 auto;
+    font-weight: 500;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+/* Dynamic Glare/Lighting Effect - handled by Atropos but we can customize */
+.relic-glare {
+    /* Atropos has its own highlight, so this manual glare might be redundant or can be used as extra overlay */
+    display: none;
+}
+
+/* Mobile Fallback - Disable Tilt and Adjust Sizing */
+@media (max-width: 768px) {
+    .hero-perspective-container {
+        padding: 1rem;
+        perspective: none;
+    }
+
+    .hero-relic-banner {
+        transform: none !important;
+        /* Force flat */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+        padding: 3rem 1.5rem;
+    }
+
+    .relic-content {
+        transform: none;
+        /* No Z-translation */
+    }
+
+    .relic-title {
+        font-size: 2.2rem;
+        letter-spacing: 0.05em;
+    }
+
+    .relic-subtitle {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    /* Hide glare on mobile for performance */
+    .relic-glare {
+        display: none;
+    }
+
+    /* Simplified borders */
+    .hero-relic-banner::before,
+    .hero-relic-banner::after {
+        width: 20px;
+        height: 20px;
+        top: 10px;
+        left: 10px;
+    }
+
+    .hero-relic-banner::after {
+        bottom: 10px;
+        right: 10px;
+    }
+}
+
+/* Hero Scroll Button */
+.relic-scroll-btn {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 1rem 2.5rem;
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #f4e8d0;
+
+    /* Wood Texture & Borders */
+    background: #1a0f0a url('/assets/woodTexture.png');
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #5c4033;
+    outline: 2px double #d4af37;
+    outline-offset: -4px;
+    border-radius: 4px;
+
+    /* Depth & Shadow */
+    box-shadow:
+        0 10px 20px rgba(0, 0, 0, 0.6),
+        inset 0 0 10px rgba(0, 0, 0, 0.8);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+}
+
+.relic-scroll-btn:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow:
+        0 15px 30px rgba(0, 0, 0, 0.7),
+        inset 0 0 15px rgba(212, 175, 55, 0.2);
+    color: #ffd700;
+    outline-color: #ffd700;
+}
+
+.relic-scroll-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.8);
+}
+
+/* Scroll Button Outside Banner */
+.relic-scroll-btn-outside {
+    display: table;
+    /* Center in flex/block */
+    margin: 2rem auto 0 auto;
+    /* Center horizontally and add top gap */
+    padding: 1rem 2.5rem;
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #f4e8d0;
+
+    /* Wood Texture & Borders matching Banner */
+    background: #1a0f0a url('/assets/woodTexture.png');
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #5c4033;
+    outline: 2px double #d4af37;
+    outline-offset: -4px;
+    border-radius: 4px;
+
+    /* Depth & Shadow */
+    box-shadow:
+        0 10px 20px rgba(0, 0, 0, 0.6),
+        inset 0 0 10px rgba(0, 0, 0, 0.8);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    z-index: 100;
+}
+
+.relic-scroll-btn-outside:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow:
+        0 15px 30px rgba(0, 0, 0, 0.7),
+        inset 0 0 15px rgba(212, 175, 55, 0.2);
+    color: #ffd700;
+    outline-color: #ffd700;
+}
+
+.relic-scroll-btn-outside:active {
+    transform: translateY(1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.8);
+}
+
+/* Ensure smooth scrolling globally */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Graphic Scroll Sign */
+.scroll-sign-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Center overflowing children */
+    margin: 1rem auto 0 auto;
+    /* Adjust spacing */
+    width: 150px;
+    /* Adjust based on image aspect ratio */
+    height: auto;
+    cursor: pointer;
+    z-index: 15;
+    /* Below gradient but clickable? No, user said gradient covers it and has pointer-events: none */
+    transition: transform 0.3s ease;
+}
+
+.scroll-sign-container:hover {
+    transform: translateY(-5px);
+}
+
+.scroll-sign-image {
+    width: 150%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    flex-shrink: 0;
+    /* Ensure it doesn't shrink */
+}
+
+.scroll-sign-image-fire {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    /* Center perfectly relative to container */
+    width: 150%;
+    height: auto;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.scroll-sign-container:hover .scroll-sign-image-fire {
+    opacity: 1;
+}
+
+/* Fire/Smoke Particles for Scroll Sign */
+.scroll-sign-container .fire-particle,
+.scroll-sign-container .smoke-particle {
+    position: absolute;
+    bottom: 60%;
+    /* Start higher */
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    opacity: 0;
+    z-index: 30;
+    /* Boost z-index */
+}
+
+/* Force opacity on animation start/hover */
+.scroll-sign-container:hover .fire-particle {
+    opacity: 1 !important;
+}
+
+/* Reuse existing animation keyframes but target specific children if needed */
+/* Reuse existing animation keyframes but target specific children if needed */
+.scroll-sign-container:hover .fire-particle.fire-1 {
+    animation: fireUp 1s ease-out infinite;
+    left: 20%;
+}
+
+.scroll-sign-container:hover .fire-particle.fire-2 {
+    animation: fireUp 1.2s ease-out infinite 0.1s;
+    left: 80%;
+}
+
+.scroll-sign-container:hover .fire-particle.fire-3 {
+    animation: fireUp 0.8s ease-out infinite 0.2s;
+    left: 35%;
+}
+
+.scroll-sign-container:hover .fire-particle.fire-4 {
+    animation: fireUp 1.5s ease-out infinite 0.3s;
+    left: 65%;
+}
+
+.scroll-sign-container:hover .fire-particle.fire-5 {
+    animation: fireUp 1.1s ease-out infinite 0.4s;
+    left: 50%;
+}
+
+.scroll-sign-container:hover .fire-particle.fire-6 {
+    animation: fireUp 1.3s ease-out infinite 0.5s;
+    left: 15%;
+}
+
+.scroll-sign-container:hover .smoke-particle {
+    animation: smokeDissipate 2.5s ease-out infinite;
+}
+
+/* Bottom Gradient Overlay for Hero Section */
+.hero-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 15rem;
+    /* Covers the stem */
+    background: linear-gradient(to top, #000000 0%, rgba(0, 0, 0, 0.9) 20%, transparent 60%);
+    /* More transparent top */
+    z-index: 20;
+    pointer-events: none;
+    /* Allows clicking through to the sign parts that aren't fully covered, technically */
+}
+
+/* Make sure the sign is positioned to be partially covered but visible */
+.scroll-sign-container {
+    margin-bottom: -2rem;
+    /* Pull it down less so it sticks out more */
+    padding-bottom: 5rem;
+    /* Ensure space */
+    z-index: 15;
+    /* Explicitly below gradient */
+    filter: brightness(1.2);
+    /* Boost brightness to pop from dark */
 }
