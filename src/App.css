@@ -1427,12 +1427,18 @@ body {
         left: 0;
         right: 0;
         z-index: 10001;
+        font-size: 0.5rem;
+        /* Smaller text */
+        padding: 0.6rem;
+        /* Smaller padding */
+        line-height: 1.2;
     }
 
     /* --- MOBILE LOGO --- */
     .main-header {
         position: fixed;
         top: 80px;
+        /* Reduced top offset */
         /* Below the fixed banner */
         left: 0;
         width: 100%;
@@ -1457,7 +1463,8 @@ body {
     }
 
     .logo-stendardo {
-        height: 240px;
+        height: 100px;
+        /* Much smaller logo */
         width: auto;
         filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
         display: block;
@@ -1472,17 +1479,17 @@ body {
     /* --- MOBILE HEADER GRADIENT OVERLAY --- */
     .mobile-header-gradient {
         position: fixed;
-        top: 50px;
+        top: 0;
         /* Below banner */
         left: 0;
         right: 0;
-        height: 280px;
+        height: 150px;
         /* Cover logo and hamburger area */
         background: linear-gradient(180deg,
-                rgba(74, 4, 4, 0.85) 0%,
-                rgba(74, 4, 4, 0.6) 30%,
-                rgba(74, 4, 4, 0.3) 60%,
+                rgba(0, 0, 0, 0.8) 0%,
+                rgba(0, 0, 0, 0.5) 60%,
                 transparent 100%);
+        /* Black gradient instead of red */
         z-index: 9999;
         /* Below logo (10000) and hamburger (10002) */
         pointer-events: none !important;
@@ -1492,7 +1499,8 @@ body {
     /* --- WAX SEAL TRIGGER --- */
     .wax-seal-trigger {
         position: fixed;
-        top: 95px;
+        top: 55px;
+        /* Adjusted position */
         /* Below banner and logo */
         /* More space below promo banner */
         right: 20px;
@@ -1520,8 +1528,8 @@ body {
 
     /* Add space for fixed header */
     .hero-section {
-        padding-top: 330px !important;
-        /* Space for banner (50px) + logo (240px) + padding */
+        padding-top: 160px !important;
+        /* Space for banner + logo + padding */
     }
 
     .wax-seal-trigger:hover,
@@ -1747,7 +1755,8 @@ body {
 
     #process,
     #about {
-        padding-top: 360px;
+        padding-top: 100px;
+        /* Reduced padding */
         scroll-margin-top: 0;
         /* Reset scroll margin */
     }

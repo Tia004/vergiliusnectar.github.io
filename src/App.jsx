@@ -9,10 +9,19 @@ function App() {
     const [mobileMenuActive, setMobileMenuActive] = useState(false);
     const [isProductCardOpen, setIsProductCardOpen] = useState(false);
     const [isExiting, setIsExiting] = useState(false);
+    const [isDesktop, setIsDesktop] = useState(typeof window !== 'undefined' ? window.innerWidth > 1000 : true);
+
+    useEffect(() => {
+        const handleResize = () => setIsDesktop(window.innerWidth > 1000);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     // Refs for dynamic height calculation
     const counterRef = useRef(null);
     const pedestalRef = useRef(null);
+    const bannerRef = useRef(null); // Ref for the promo banner
+    const headerRef = useRef(null); // Ref for the main header (logo)
 
     useEffect(() => {
         const handleScroll = () => setScrollY(window.scrollY);
@@ -49,6 +58,38 @@ function App() {
             if (pedestalImg) pedestalImg.removeEventListener('load', updateHeights);
         };
     }, [isProductCardOpen]);
+
+    // Dynamic Mobile Header Positioning
+    useEffect(() => {
+        const updateHeaderPosition = () => {
+            if (bannerRef.current && headerRef.current && window.innerWidth <= 1000) {
+                const bannerHeight = bannerRef.current.offsetHeight;
+                // Position header exactly below banner with -5px overlap for "screwed in" look
+                headerRef.current.style.top = `${bannerHeight - 0}px`;
+
+                // Also update the padding-top of the hero section so content isn't hidden
+                // Initial padding is measurable, or we can set it dynamically
+                const headerHeight = headerRef.current.offsetHeight;
+                // Determine padding based on total occupied space
+                const totalTopSpace = bannerHeight + (headerHeight * 0.8); // Approximate
+
+                // We don't want to override the CSS !important, 
+                // but we can set a CSS variable or rely on the CSS having enough buffer.
+                // For now, let's just handle the hanging logo.
+            } else if (headerRef.current && window.innerWidth > 1000) {
+                // Reset for desktop if needed
+                headerRef.current.style.top = '';
+            }
+        };
+
+        // Run on mount and resize
+        updateHeaderPosition();
+        window.addEventListener('resize', updateHeaderPosition);
+        // Helper to run again after a brief delay to ensure fonts/layout are stable
+        setTimeout(updateHeaderPosition, 100);
+
+        return () => window.removeEventListener('resize', updateHeaderPosition);
+    }, [isDesktop]); // Re-run when desktop state changes
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -149,7 +190,7 @@ function App() {
                 </div>
             </div>
 
-            <div className="top-promo-banner">
+            <div className="top-promo-banner" ref={bannerRef}>
 
                 <p>⚡ ACQUISTA 3 BOTTIGLIE E RICEVI IL 10% DI SCONTO - SPEDIZIONE GRATUITA SOPRA I 50€ ⚡</p>
             </div>
@@ -157,7 +198,7 @@ function App() {
             {/* Gradient overlay for readability */}
             <div className="mobile-header-gradient"></div>
 
-            <header className="main-header">
+            <header className="main-header" ref={headerRef}>
                 {/* Logo Stendardo - left, clickable home button */}
                 <a href="/" className="logo-stendardo-container" onClick={() => window.location.reload()}>
                     <img src="/assets/LogoStendardo.png" alt="Vergilius Nectar" className="logo-stendardo" />
@@ -219,16 +260,27 @@ function App() {
             <main>
                 <section id="hero" className="hero-section">
                     <div className="hero-perspective-container">
-                        <Atropos
-                            className="hero-relic-atropos"
-                            activeOffset={40}
-                            shadowScale={1.05}
-                            onEnter={() => console.log('Enter')}
-                            onLeave={() => console.log('Leave')}
-                            onRotate={(x, y) => console.log('Rotate', x, y)}
-                        >
+                        {isDesktop ? (
+                            <Atropos
+                                className="hero-relic-atropos"
+                                activeOffset={40}
+                                shadowScale={1.05}
+                            >
+                                <div className="hero-relic-banner">
+                                    <div className="relic-content" data-atropos-offset="5">
+                                        <h1 className="relic-title">Vergilius Nectar</h1>
+                                        <p className="relic-subtitle">
+                                            Oltrepassate la soglia e scoprite l'elisir degli antichi dei. <br />
+                                            Qui, dove il tempo si ferma e la leggenda prende vita, <br />
+                                            custodiamo il segreto del miele dorato, forgiato nel fuoco e nella passione. <br />
+                                            Un nettare puro, crudo e selvaggio, attende solo chi ha il coraggio di assaporare la storia.
+                                        </p>
+                                    </div>
+                                </div>
+                            </Atropos>
+                        ) : (
                             <div className="hero-relic-banner">
-                                <div className="relic-content" data-atropos-offset="5">
+                                <div className="relic-content">
                                     <h1 className="relic-title">Vergilius Nectar</h1>
                                     <p className="relic-subtitle">
                                         Oltrepassate la soglia e scoprite l'elisir degli antichi dei. <br />
@@ -236,10 +288,9 @@ function App() {
                                         custodiamo il segreto del miele dorato, forgiato nel fuoco e nella passione. <br />
                                         Un nettare puro, crudo e selvaggio, attende solo chi ha il coraggio di assaporare la storia.
                                     </p>
-
                                 </div>
                             </div>
-                        </Atropos>
+                        )}
                     </div>
                     <a href="#locanda" className="scroll-sign-container">
                         <img src="/assets/ScorriGiu.png" alt="Scorri Giù" className="scroll-sign-image" />
