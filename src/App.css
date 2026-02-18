@@ -3002,8 +3002,8 @@ body {
     .locanda-title-img {
         height: 20vh;
         /* Increased for mobile too */
-        top: 30%;
-        /* Moved down to match desktop */
+        top: 20%;
+        /* Moved UP to reduce empty space and show counter */
         max-width: 85%;
     }
 
@@ -3827,30 +3827,52 @@ body {
 /* Mobile Fallback - Disable Tilt and Adjust Sizing */
 /* Mobile Fallback - Disable Tilt and Adjust Sizing - Match Header Breakpoint */
 @media (max-width: 1000px) {
+
+    /* Optimize Discount Banner for Mobile */
+    .top-promo-banner {
+        height: 38px !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        /* FIX: Start from Left to avoid cutting off start */
+    }
+
+    .top-promo-banner p {
+        font-size: 11px !important;
+        line-height: 1 !important;
+        -webkit-text-size-adjust: none;
+    }
+
+    .promo-scroll-track {
+        justify-content: flex-start !important;
+        width: max-content;
+        /* Ensure it takes full width */
+        /* Start from Left */
+    }
+
     .hero-section {
         margin-top: 0 !important;
         /* Reset the negative margin from desktop */
         padding-top: 140px !important;
-        /* Push down below the hanging header (reduced to 140px to pull up) */
+        /* Balanced for OSs */
         height: 100svh;
         /* Use Small Viewport Height to fit content within visible area without resizing */
-        /* Use Small Viewport Height to fit content within visible area without resizing */
-        /* Force full viewport height */
-        min-height: 100vh;
-        /* Safety net for short screens (desktop resize) to prevent overlap */
+        min-height: auto;
+        /* Remove fixed min-height to prevent overflow */
         /* Let content dictate height if screen is too short */
-        padding-bottom: 1.5rem;
-        /* reduced space for scroll sign */
+        padding-bottom: calc(2rem + env(safe-area-inset-bottom));
+        /* Add safe area for iOS Home Bar */
         display: flex;
         /* Use flexbox for vertical distribution */
         flex-direction: column;
         justify-content: space-between;
-        /* push content and sign apart */
+        /* Push content to edges */
         align-items: center;
         box-sizing: border-box;
         /* Include padding in height */
-        gap: 2rem;
-        /* Force minimum gap */
+        gap: 1rem;
+        /* Reduced from 2rem to compact layout */
     }
 
     .hero-perspective-container {
@@ -3871,8 +3893,8 @@ body {
         transform: none !important;
         /* Force flat */
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-        padding: 2rem 1.5rem;
-        /* Increase padding */
+        padding: 1.5rem 1rem;
+        /* Compact padding to save height */
         /* Reduced padding */
         width: 90vw;
         /* Fill the screen appropriately */
@@ -3919,6 +3941,14 @@ body {
     .hero-relic-banner::after {
         bottom: 10px;
         right: 10px;
+    }
+
+    /* FIX: Ensure scroll sign is visible on mobile but behind shadow */
+    .scroll-sign-container {
+        z-index: 0 !important;
+        /* Behind gradient (z-index 1) */
+        margin-top: 0.2rem !important;
+        /* Reduced push */
     }
 }
 
@@ -4036,9 +4066,11 @@ html {
     /* Adjust based on image aspect ratio */
     height: auto;
     cursor: pointer;
-    z-index: 15;
+    z-index: 200;
     /* Below gradient but clickable? No, user said gradient covers it and has pointer-events: none */
     transition: transform 0.3s ease;
+    margin-top: 6rem;
+    /* Push down into gradient on Desktop */
 }
 
 .scroll-sign-container:hover {
