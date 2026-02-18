@@ -31,6 +31,37 @@ body {
     overflow-x: hidden;
 }
 
+/* Mobile Background Fix - Disable fixed attachment to prevent jitter */
+@media (max-width: 1000px) {
+    .app-container {
+        background: none !important;
+        /* Remove background from container */
+        min-height: 100vh;
+    }
+
+    /* Fixed div to hold background on mobile (Robust fix) */
+    .mobile-background-fixed {
+        display: block !important;
+        position: fixed !important;
+        /* Override .app-container > * */
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -9999 !important;
+        /* Force behind everything */
+        background-image: url('/assets/tavern_bg.png');
+        background-size: cover;
+        background-position: center top;
+        pointer-events: none;
+    }
+}
+
+/* Default hidden on desktop */
+.mobile-background-fixed {
+    display: none;
+}
+
 /* Dark vignette overlay */
 .app-container::before {
     width: 100vw;
@@ -134,6 +165,17 @@ body {
     font-size: 0.9rem;
     letter-spacing: 1.5px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+/* Hide duplicate text on Desktop */
+.promo-scroll-track {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.promo-scroll-track p:nth-child(2) {
+    display: none;
 }
 
 /* Main Header - Centered Horizontal Layout */
@@ -803,6 +845,29 @@ body {
     letter-spacing: 0.02em;
 }
 
+/* Product Title & Subtitle */
+.product-title-description {
+    font-size: 1.8rem;
+    /* Adjusted base size */
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+    color: #f5e6d3;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.product-variant-detail {
+    display: block;
+    font-size: 1rem;
+    color: #b8a98a;
+    /* Goldish dim color */
+    font-weight: normal;
+    margin-top: 0.5rem;
+    font-family: 'Cinzel', serif;
+    text-transform: none;
+    letter-spacing: 0.05em;
+}
+
 /* Price Section */
 .price-section {
     margin-bottom: 1rem;
@@ -1338,8 +1403,16 @@ body {
     }
 
     .logo-banner {
-        width: 65px;
-        height: 115px;
+        /* This wrapper might be obsolete, targeting logo directly below */
+        width: auto;
+        height: auto;
+    }
+
+    .logo-stendardo {
+        /* Resize logo for mobile/narrow desktop */
+        height: auto !important;
+        width: clamp(130px, 18vw, 130px) !important;
+        /* Dynamic sizing */
     }
 
     .logo-banner .logo {
@@ -1414,6 +1487,11 @@ body {
     }
 }
 
+/* --- HIDE MOBILE ELEMENTS ON DESKTOP --- */
+.hamburger-hanging-sign {
+    display: none;
+}
+
 /* ==========================================
  * MEDIEVAL MOBILE MENU - MOBILE ONLY
  * ========================================== */
@@ -1427,11 +1505,62 @@ body {
         left: 0;
         right: 0;
         z-index: 10001;
-        font-size: 0.5rem;
-        /* Smaller text */
-        padding: 0.6rem;
-        /* Smaller padding */
-        line-height: 1.2;
+        font-size: 0.75rem;
+        /* Readable small text */
+        /* padding: 0.8rem 1rem; */
+        /* Removed/Modified for scroll */
+        padding: 0.8rem 0;
+        /* Vertical padding only */
+        line-height: 1.4;
+        overflow: hidden;
+        white-space: nowrap;
+        display: flex;
+        justify-content: flex-start;
+        /* Ensure start from left */
+        align-items: center;
+    }
+
+    .promo-scroll-track {
+        display: flex;
+        align-items: center;
+        /* Calculate width based on content, or just let flex handle it */
+        width: max-content;
+        /* Ensure container takes full width of text */
+        animation: scrollText 25s ease-in-out infinite;
+        /* Pause effect requires ease-in-out */
+        will-change: transform;
+        /* Optimize animation */
+        /* padding-left: 2px; - Moved to p for seamless loop */
+    }
+
+    .promo-scroll-track p {
+        margin: 0;
+        padding: 0 0 0 2px;
+        /* 2px left padding on EACH block for seamless loop */
+        display: inline-block;
+        white-space: nowrap;
+        /* Ensure distinct text blocks */
+    }
+
+    /* Force show 2nd p on mobile for scroll */
+    .promo-scroll-track p:nth-child(2) {
+        display: inline-block;
+    }
+
+    @keyframes scrollText {
+
+        0% {
+            transform: translateX(10px);
+        }
+
+        10% {
+            transform: translateX(10px);
+        }
+
+        100% {
+            transform: translateX(calc(-50% + 10px));
+            /* Move by half width (one full text copy) */
+        }
     }
 
     /* --- MOBILE LOGO --- */
@@ -1476,6 +1605,16 @@ body {
         display: none;
     }
 
+    /* Hide Desktop Nav Blocks on Mobile */
+    .nav-blocks {
+        display: none !important;
+    }
+
+    /* Ensure Hamburger is visible */
+    .hamburger-hanging-sign {
+        display: block !important;
+    }
+
     /* --- MOBILE HEADER GRADIENT OVERLAY --- */
     .mobile-header-gradient {
         position: fixed;
@@ -1496,64 +1635,112 @@ body {
         /* Don't block clicks */
     }
 
-    /* --- WAX SEAL TRIGGER --- */
-    .wax-seal-trigger {
+    /* --- HANGING HAMBURGER SIGN --- */
+    .hamburger-hanging-sign {
         position: fixed;
-        top: 55px;
-        /* Adjusted position */
-        /* Below banner and logo */
-        /* More space below promo banner */
+        /* Top is set dynamically by JS to hang from banner */
         right: 20px;
-        width: 60px;
-        height: 60px;
-        background-color: #800000;
-        /* Dark Red */
-        border-radius: 50% 45% 55% 40% / 45% 55% 40% 60%;
-        /* Irregular shape */
-        box-shadow:
-            inset 0 0 10px rgba(0, 0, 0, 0.5),
-            /* Inner depth */
-            2px 2px 5px rgba(0, 0, 0, 0.4);
-        /* Drop shadow */
+        width: 80px;
+        /* Adjust based on image aspect ratio */
+        /* Adjust based on image aspect ratio */
+        height: auto;
+        z-index: 10000;
+        /* Below banner (10001) */
         cursor: pointer;
-        z-index: 10002;
-        /* Above logo to be clickable */
-        /* High z-index */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: 0.2s ease;
-        border: 2px solid #600000;
+        display: block;
+        transition: transform 0.2s ease;
+        /* Ensure it's above the gradient */
     }
+
+    .hamburger-sign-image {
+        width: 100%;
+        height: auto;
+        display: block;
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
+    }
+
+    .hamburger-sign-image-fire {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+    }
+
+    /* Hover and Active Effects */
+    .hamburger-hanging-sign:hover,
+    .hamburger-hanging-sign.active {
+        transform: translateY(-2px);
+        /* Slight lift */
+    }
+
+    .hamburger-hanging-sign:hover .hamburger-sign-image-fire,
+    .hamburger-hanging-sign.active .hamburger-sign-image-fire {
+        opacity: 1;
+    }
+
+    /* Particle Animations for Hamburger */
+    .hamburger-hanging-sign .fire-particle,
+    .hamburger-hanging-sign .smoke-particle {
+        position: absolute;
+        pointer-events: none;
+        opacity: 0;
+        /* Hidden by default */
+    }
+
+    .hamburger-hanging-sign:hover .fire-particle.fire-1,
+    .hamburger-hanging-sign.active .fire-particle.fire-1 {
+        top: 50%;
+        left: 40%;
+        width: 4px;
+        height: 4px;
+        background: #ffcc00;
+        box-shadow: 0 0 5px #ff4500;
+        border-radius: 50%;
+        animation: fireUpLeft 1.2s ease-out infinite;
+    }
+
+    .hamburger-hanging-sign:hover .fire-particle.fire-2,
+    .hamburger-hanging-sign.active .fire-particle.fire-2 {
+        top: 60%;
+        left: 60%;
+        width: 3px;
+        height: 3px;
+        background: #ffa500;
+        animation: fireUpRight 1.5s ease-out infinite;
+    }
+
+    .hamburger-hanging-sign:hover .fire-particle.fire-3,
+    .hamburger-hanging-sign.active .fire-particle.fire-3 {
+        top: 55%;
+        left: 50%;
+        width: 5px;
+        height: 5px;
+        background: #ff4500;
+        animation: fireUp 1s ease-out infinite;
+    }
+
+    /* Only need a few particles for mobile to avoid clutter */
+    .hamburger-hanging-sign:hover .fire-particle.fire-4,
+    .hamburger-hanging-sign.active .fire-particle.fire-4,
+    .hamburger-hanging-sign:hover .fire-particle.fire-5,
+    .hamburger-hanging-sign.active .fire-particle.fire-5,
+    .hamburger-hanging-sign:hover .fire-particle.fire-6,
+    .hamburger-hanging-sign.active .fire-particle.fire-6,
+    .hamburger-hanging-sign:hover .smoke-particle,
+    .hamburger-hanging-sign.active .smoke-particle {
+        display: none;
+        /* Hide extra particles on mobile for performance/clarity */
+    }
+
 
     /* Add space for fixed header */
     .hero-section {
         padding-top: 160px !important;
         /* Space for banner + logo + padding */
-    }
-
-    .wax-seal-trigger:hover,
-    .wax-seal-trigger:active {
-        transform: scale(1.05);
-    }
-
-    /* Inner impression of the seal */
-    .wax-seal-trigger::after {
-        content: '☰';
-        /* Initial or Symbol */
-        font-family: 'Times New Roman', serif;
-        font-weight: bold;
-        font-size: 30px;
-        color: #220000;
-        text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.2);
-        border: 2px dashed #600000;
-        border-radius: 50%;
-        width: 70%;
-        height: 70%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3);
     }
 
     /* --- PARCHMENT MENU OVERLAY --- */
@@ -1570,12 +1757,19 @@ body {
         justify-content: center;
         align-items: flex-start;
         /* Start from top */
-        padding-top: 80px;
+        padding-top: 0;
+        /* Changed from 80px to 0 to overlap banner as requested */
 
         /* Hidden state */
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.4s ease;
+        overflow: hidden;
+        /* Prevent ALL scroll on overlay container */
+        overscroll-behavior: none;
+        /* Prevent bounce effects */
+        touch-action: none;
+        /* Disable default touch actions on overlay (except fallback) */
     }
 
     .medieval-menu-overlay.active {
@@ -1584,14 +1778,27 @@ body {
     }
 
     .parchment-scroll {
-        width: 300px;
-        min-height: 400px;
+        width: 100%;
+        /* Full width as requested */
+        /* max-width: 400px;  Optional: keep a max-width if tablet needs it, but user said "max to cover all" */
+        height: 60vh;
+        /* 60% of viewport height */
+        overflow-y: auto;
+        /* Allow VERTICAL scrolling only */
+        overflow-x: hidden;
+        /* Explicitly hide horizontal overflow */
+        overscroll-behavior: contain;
+        /* Contain scroll within element */
+        touch-action: pan-y;
+        /* Allow vertical pan only */
         background-color: #f4e4bc;
         /* Fallback color */
         background-image: linear-gradient(to bottom, #f4e4bc, #e0cda0);
         background-size: cover;
         position: relative;
         padding: 40px 20px;
+        box-sizing: border-box;
+        /* Ensure padding doesn't add to width */
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 
         /* Unrolling Animation */
@@ -1610,6 +1817,31 @@ body {
 
     .medieval-menu-overlay.active .parchment-scroll {
         transform: scaleY(1);
+    }
+
+    .mobile-menu-close-btn {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        background: none;
+        border: none;
+        font-family: 'Cinzel', 'Times New Roman', serif;
+        font-size: 2rem;
+        font-weight: bold;
+        color: #3e2723;
+        /* Dark Brown */
+        cursor: pointer;
+        z-index: 20;
+        /* Above parchment content */
+        padding: 0;
+        line-height: 1;
+        transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    .mobile-menu-close-btn:hover {
+        transform: scale(1.1);
+        color: #8b0000;
+        /* Dark Red on hover */
     }
 
     /* --- MENU LINKS --- */
@@ -1639,6 +1871,14 @@ body {
 
     .medieval-menu-overlay.active .medieval-nav-links li:nth-child(2) {
         transition-delay: 0.4s;
+    }
+
+    .medieval-menu-overlay.active .medieval-nav-links li:nth-child(3) {
+        transition-delay: 0.5s;
+    }
+
+    .medieval-menu-overlay.active .medieval-nav-links li:nth-child(4) {
+        transition-delay: 0.6s;
     }
 
     .medieval-nav-links a {
@@ -2307,11 +2547,20 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     z-index: 3;
     /* Above gradient (2) */
     margin-bottom: calc(var(--counter-height, 140px) * 0.46);
     /* Lift bottle to sit ON counter - attached, not floating */
     filter: brightness(0.7);
+    position: relative;
+    /* FIX: Anchor speech bubble to bottle */
+    width: max-content !important;
+    /* FIX: Force shrink container */
+    margin-left: auto;
+    margin-right: auto;
+    justify-self: center;
+    /* FIX: Explicitly center the grid item */
 }
 
 .bottle-container:hover {
@@ -2349,7 +2598,6 @@ body {
     border: 2px solid #4a4540;
     animation: bounce 2s infinite ease-in-out;
     z-index: 15;
-    /* Above title */
 }
 
 .speech-bubble-arrow {
@@ -2387,6 +2635,18 @@ body {
 
     50% {
         transform: translateY(-10px);
+    }
+}
+
+@keyframes bounce-mobile {
+
+    0%,
+    100% {
+        transform: translate(-50%, 0);
+    }
+
+    50% {
+        transform: translate(-50%, -10px);
     }
 }
 
@@ -2767,10 +3027,22 @@ body {
     }
 
     .speech-bubble {
-        font-size: 0.9rem;
+        position: absolute;
+        font-size: clamp(0.6rem, 3.5vw, 0.9rem);
+        /* Scale text to fit */
         padding: 0.8rem 1rem;
         top: -60px;
-        /* Closer to bottle */
+        white-space: nowrap;
+        /* Prevent wrapping as requested */
+        width: max-content;
+        /* Fit content */
+        max-width: 95vw;
+        /* Safety net */
+        left: 50% !important;
+        /* transform: translateX(-50%) !important;  <-- REMOVED: Handled by animation */
+        animation: bounce-mobile 2s infinite ease-in-out !important;
+        /* FIX: Use centered bounce */
+        /* Ensure centered if position absolute */
     }
 
     /* Product Card Adjustments */
@@ -2778,7 +3050,8 @@ body {
         flex-direction: column;
         padding: 0;
         overflow: hidden;
-        height: 100dvh;
+        height: 100vh;
+        /* FIX: Stable height (was 100dvh) */
         width: 100vw;
         position: relative;
     }
@@ -2890,21 +3163,23 @@ body {
     .quantity-selector-box {
         margin-bottom: 0;
         height: 100%;
-        /* Fill container height */
         box-sizing: border-box;
         display: flex;
         align-items: center;
         padding: 0 0.5rem;
-        /* Reduced padding */
-        gap: 5px;
-        /* Reduced gap */
+        gap: 10px;
+        /* Increased gap */
     }
 
     .quantity-btn-box {
-        width: 30px;
-        /* Smaller buttons */
-        height: 30px;
-        font-size: 1rem;
+        width: 40px;
+        /* Larger touch target */
+        height: 40px;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
     }
 
     .quantity-display-box {
@@ -2922,18 +3197,19 @@ body {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 0 0.5rem;
-        /* Reduced padding */
+        padding: 0.25rem 0.5rem;
+        /* Further reduced padding */
         height: 100%;
-        /* Fill row height */
         box-sizing: border-box;
         font-size: 0.8rem;
-        /* Smaller font to fit text */
+        /* Slightly smaller */
         letter-spacing: 0.05em;
-        /* Reduced spacing */
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        white-space: normal;
+        /* Allow wrapping */
+        line-height: 1.1;
+        text-align: center;
+        overflow: visible;
+        /* Try visible to allow overflow if needed, or wrap */
     }
 
     .mobile-action-row-secondary {
@@ -3003,6 +3279,13 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     z-index: 1;
+}
+
+@media (max-width: 1000px) {
+    .chisiamo-section.medieval-theme {
+        background-attachment: scroll !important;
+        background-position: center top;
+    }
 }
 
 /* Top Gradient Overlay */
@@ -3542,17 +3825,61 @@ body {
 }
 
 /* Mobile Fallback - Disable Tilt and Adjust Sizing */
-@media (max-width: 768px) {
+/* Mobile Fallback - Disable Tilt and Adjust Sizing - Match Header Breakpoint */
+@media (max-width: 1000px) {
+    .hero-section {
+        margin-top: 0 !important;
+        /* Reset the negative margin from desktop */
+        padding-top: 140px !important;
+        /* Push down below the hanging header (reduced to 140px to pull up) */
+        height: 100svh;
+        /* Use Small Viewport Height to fit content within visible area without resizing */
+        /* Use Small Viewport Height to fit content within visible area without resizing */
+        /* Force full viewport height */
+        min-height: 100vh;
+        /* Safety net for short screens (desktop resize) to prevent overlap */
+        /* Let content dictate height if screen is too short */
+        padding-bottom: 1.5rem;
+        /* reduced space for scroll sign */
+        display: flex;
+        /* Use flexbox for vertical distribution */
+        flex-direction: column;
+        justify-content: space-between;
+        /* push content and sign apart */
+        align-items: center;
+        box-sizing: border-box;
+        /* Include padding in height */
+        gap: 2rem;
+        /* Force minimum gap */
+    }
+
     .hero-perspective-container {
-        padding: 1rem;
+        padding: 0 1rem;
         perspective: none;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* Vertically center the card in available space */
+        flex-grow: 1;
+        /* Take up available space */
+        margin-bottom: 1rem;
+        /* Extra push from bottom */
     }
 
     .hero-relic-banner {
         transform: none !important;
         /* Force flat */
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-        padding: 3rem 1.5rem;
+        padding: 2rem 1.5rem;
+        /* Increase padding */
+        /* Reduced padding */
+        width: 90vw;
+        /* Fill the screen appropriately */
+        max-width: 650px;
+        /* Allow it to be BIG on tablets/desktop resize (was 400px) */
+
+        /* Limit width for elegance */
     }
 
     .relic-content {
@@ -3561,13 +3888,18 @@ body {
     }
 
     .relic-title {
-        font-size: 2.2rem;
+        font-size: 1.6rem;
+        /* Even Smaller title */
         letter-spacing: 0.05em;
+        margin-bottom: 0.5rem;
+        line-height: 1.2;
     }
 
     .relic-subtitle {
-        font-size: 1rem;
-        line-height: 1.6;
+        font-size: 0.85rem;
+        /* Smaller body */
+        line-height: 1.35;
+        max-width: 100%;
     }
 
     /* Hide glare on mobile for performance */
@@ -3734,6 +4066,18 @@ html {
     opacity: 0;
     transition: opacity 0.4s ease;
     pointer-events: none;
+}
+
+/* Mobile adjustments for scroll sign */
+@media (max-width: 1000px) {
+    .scroll-sign-container {
+        width: 120px;
+        /* Smaller sign on mobile */
+        margin: 0 auto;
+        /* No extra top margin, controlled by flex parent */
+        flex-shrink: 0;
+        /* Prevent shrinking */
+    }
 }
 
 .scroll-sign-container:hover .scroll-sign-image-fire {

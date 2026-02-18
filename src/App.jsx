@@ -22,6 +22,7 @@ function App() {
     const pedestalRef = useRef(null);
     const bannerRef = useRef(null); // Ref for the promo banner
     const headerRef = useRef(null); // Ref for the main header (logo)
+    const hamburgerRef = useRef(null); // Ref for the hanging hamburger menu
 
     useEffect(() => {
         const handleScroll = () => setScrollY(window.scrollY);
@@ -62,23 +63,22 @@ function App() {
     // Dynamic Mobile Header Positioning
     useEffect(() => {
         const updateHeaderPosition = () => {
-            if (bannerRef.current && headerRef.current && window.innerWidth <= 1000) {
+            if (bannerRef.current && window.innerWidth <= 1000) {
                 const bannerHeight = bannerRef.current.offsetHeight;
-                // Position header exactly below banner with -5px overlap for "screwed in" look
-                headerRef.current.style.top = `${bannerHeight - 0}px`;
 
-                // Also update the padding-top of the hero section so content isn't hidden
-                // Initial padding is measurable, or we can set it dynamically
-                const headerHeight = headerRef.current.offsetHeight;
-                // Determine padding based on total occupied space
-                const totalTopSpace = bannerHeight + (headerHeight * 0.8); // Approximate
+                // Position header exactly below banner with -5px overlap
+                if (headerRef.current) {
+                    headerRef.current.style.top = `${bannerHeight - 0}px`;
+                }
 
-                // We don't want to override the CSS !important, 
-                // but we can set a CSS variable or rely on the CSS having enough buffer.
-                // For now, let's just handle the hanging logo.
-            } else if (headerRef.current && window.innerWidth > 1000) {
-                // Reset for desktop if needed
-                headerRef.current.style.top = '';
+                // Position hanging hamburger menu exactly below banner
+                if (hamburgerRef.current) {
+                    hamburgerRef.current.style.top = `${bannerHeight - 5}px`;
+                }
+            } else {
+                // Reset for desktop
+                if (headerRef.current) headerRef.current.style.top = '';
+                if (hamburgerRef.current) hamburgerRef.current.style.top = '';
             }
         };
 
@@ -101,8 +101,9 @@ function App() {
     const [showDetailsModal, setShowDetailsModal] = useState(false);
 
     // Lock body scroll when modal is open
+    // Lock body scroll when modal OR mobile menu is open
     useEffect(() => {
-        if (showPaymentModal || showDetailsModal) {
+        if (showPaymentModal || showDetailsModal || mobileMenuActive) {
             document.body.style.overflow = 'hidden';
         } else {
             document.body.style.overflow = 'unset';
@@ -110,7 +111,7 @@ function App() {
         return () => {
             document.body.style.overflow = 'unset';
         };
-    }, [showPaymentModal, showDetailsModal]);
+    }, [showPaymentModal, showDetailsModal, mobileMenuActive]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -158,13 +159,23 @@ function App() {
                 </button>
             )}
 
-            {/* Medieval Mobile Menu - Wax Seal Trigger */}
+            {/* Hanging Hamburger Menu - Mobile Only */}
             <div
-                id="medievalMenuTrigger"
-                className="wax-seal-trigger"
-                title="Menu"
+                ref={hamburgerRef}
+                className={`hamburger-hanging-sign ${mobileMenuActive ? 'active' : ''}`}
                 onClick={() => setMobileMenuActive(!mobileMenuActive)}
-            ></div>
+            >
+                <img src="/assets/HamburgerMenu.png" alt="Menu" className="hamburger-sign-image" />
+                <img src="/assets/HamburgerMenu_fuoco.png" alt="Menu" className="hamburger-sign-image-fire" />
+                <span className="fire-particle fire-1"></span>
+                <span className="fire-particle fire-2"></span>
+                <span className="fire-particle fire-3"></span>
+                <span className="fire-particle fire-4"></span>
+                <span className="fire-particle fire-5"></span>
+                <span className="fire-particle fire-6"></span>
+                <span className="smoke-particle smoke-1"></span>
+                <span className="smoke-particle smoke-2"></span>
+            </div>
 
             {/* Medieval Mobile Menu - Overlay */}
             <div
@@ -177,6 +188,13 @@ function App() {
                 }}
             >
                 <div className="parchment-scroll">
+                    <button
+                        className="mobile-menu-close-btn"
+                        onClick={() => setMobileMenuActive(false)}
+                        aria-label="Close Menu"
+                    >
+                        ✕
+                    </button>
                     <div className="scroll-top-roll"></div>
 
                     <nav>
@@ -191,12 +209,17 @@ function App() {
             </div>
 
             <div className="top-promo-banner" ref={bannerRef}>
-
-                <p>⚡ ACQUISTA 3 BOTTIGLIE E RICEVI IL 10% DI SCONTO - SPEDIZIONE GRATUITA SOPRA I 50€ ⚡</p>
+                <div className="promo-scroll-track">
+                    <p>⚡ ACQUISTA 3 BOTTIGLIE E RICEVI IL 10% DI SCONTO - SPEDIZIONE GRATUITA SOPRA I 50€ ⚡ &nbsp;&nbsp;|&nbsp;&nbsp; </p>
+                    <p>⚡ ACQUISTA 3 BOTTIGLIE E RICEVI IL 10% DI SCONTO - SPEDIZIONE GRATUITA SOPRA I 50€ ⚡ &nbsp;&nbsp;|&nbsp;&nbsp; </p>
+                </div>
             </div>
 
             {/* Gradient overlay for readability */}
             <div className="mobile-header-gradient"></div>
+
+            {/* Mobile Fixed Background */}
+            <div className="mobile-background-fixed"></div>
 
             <header className="main-header" ref={headerRef}>
                 {/* Logo Stendardo - left, clickable home button */}
@@ -350,7 +373,10 @@ function App() {
 
                             {/* Right: Product Content */}
                             <div className="product-content-section">
-                                <h1 className="product-title-description">Idromele artigianale non filtrato, bottiglia da 0,7L</h1>
+                                <h1 className="product-title-description">
+                                    Idromele Artigianale Non Filtrato
+                                    <span className="product-variant-detail">Bottiglia da 0,7L</span>
+                                </h1>
 
                                 {/* Price */}
                                 <div className="price-section">
