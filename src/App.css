@@ -3875,6 +3875,12 @@ body {
         /* Reduced from 2rem to compact layout */
     }
 
+    /* FIX: Soften Shadow on Mobile (Start fading immediately) */
+    .hero-section::after {
+        background: linear-gradient(to top, #000000 0%, transparent 100%) !important;
+        height: 15rem !important;
+    }
+
     .hero-perspective-container {
         padding: 0 1rem;
         perspective: none;
