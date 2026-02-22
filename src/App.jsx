@@ -139,6 +139,16 @@ function App() {
 
     return (
         <div className="app-container">
+            {/* Background Video */}
+            <video
+                className="background-video"
+                autoPlay
+                loop
+                muted
+                playsInline
+            >
+                <source src="/assets/tavern_bg.mp4" type="video/mp4" />
+            </video>
 
             {/* Scroll to Top Button - Desktop Only */}
             {showScrollButton && (
@@ -217,9 +227,6 @@ function App() {
 
             {/* Gradient overlay for readability */}
             <div className="mobile-header-gradient"></div>
-
-            {/* Mobile Fixed Background */}
-            <div className="mobile-background-fixed"></div>
 
             <header className="main-header" ref={headerRef}>
                 {/* Logo Stendardo - left, clickable home button */}

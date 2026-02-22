@@ -24,6 +24,7 @@ node_modules
 dist/
 build/
 out/
+Ispirazione/
 
 # Environment files
 .env

@@ -20,46 +20,24 @@ body {
 
 .app-container {
     min-height: 100vh;
-    /* Medieval dungeon background with asset image */
-    background-image: url('/assets/tavern_bg.png');
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
     position: relative;
     font-family: 'Cinzel', serif;
     color: #f4e8d0;
     overflow-x: hidden;
 }
 
-/* Mobile Background Fix - Disable fixed attachment to prevent jitter */
-@media (max-width: 1000px) {
-    .app-container {
-        background: none !important;
-        /* Remove background from container */
-        min-height: 100vh;
-    }
-
-    /* Fixed div to hold background on mobile (Robust fix) */
-    .mobile-background-fixed {
-        display: block !important;
-        position: fixed !important;
-        /* Override .app-container > * */
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: -9999 !important;
-        /* Force behind everything */
-        background-image: url('/assets/tavern_bg.png');
-        background-size: cover;
-        background-position: center top;
-        pointer-events: none;
-    }
-}
-
-/* Default hidden on desktop */
-.mobile-background-fixed {
-    display: none;
+/* Background Video */
+.background-video,
+.app-container>.background-video {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    object-fit: cover !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+    filter: brightness(0.7);
 }
 
 /* Dark vignette overlay */
@@ -73,6 +51,7 @@ body {
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
     z-index: 1;
     pointer-events: none;
 }
@@ -153,8 +132,7 @@ body {
     padding: 0.5rem;
     font-weight: bold;
     border-bottom: 3px solid #8b4513;
-    box-shadow:
-        0 4px 10px rgba(0, 0, 0, 0.8),
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8),
         inset 0 1px 0 rgba(255, 184, 77, 0.2);
     position: relative;
     z-index: 1001;
@@ -747,8 +725,7 @@ body {
     right: 10%;
     height: 30px;
     border-radius: 0 0 20px 20px;
-    background:
-        radial-gradient(ellipse at 30% 50%, var(--lava-orange) 0%, var(--lava-red) 30%, transparent 60%),
+    background: radial-gradient(ellipse at 30% 50%, var(--lava-orange) 0%, var(--lava-red) 30%, transparent 60%),
         radial-gradient(ellipse at 70% 50%, var(--lava-red) 0%, rgba(139, 30, 0, 0.8) 30%, transparent 60%),
         linear-gradient(180deg, transparent 0%, rgba(255, 80, 0, 0.4) 50%, rgba(200, 40, 0, 0.6) 100%);
     opacity: 0.7;
@@ -771,8 +748,7 @@ body {
         /* Stone chips and imperfections */
         repeating-radial-gradient(circle at 20% 30%, transparent 0, transparent 3px, rgba(0, 0, 0, 0.4) 4px, transparent 5px),
         repeating-radial-gradient(circle at 80% 60%, transparent 0, transparent 2px, rgba(0, 0, 0, 0.3) 3px, transparent 4px);
-    box-shadow:
-        inset 8px 8px 16px rgba(0, 0, 0, 0.8),
+    box-shadow: inset 8px 8px 16px rgba(0, 0, 0, 0.8),
         inset -4px -4px 12px rgba(100, 50, 30, 0.15);
     pointer-events: none;
 }
@@ -836,8 +812,7 @@ body {
     font-size: 2rem;
     color: var(--gold);
     line-height: 1.2;
-    text-shadow:
-        2px 2px 4px rgba(0, 0, 0, 0.9),
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9),
         0 0 15px rgba(212, 175, 55, 0.2);
     margin: 0 0 1rem 0;
     font-weight: 700;
@@ -878,8 +853,7 @@ body {
     font-weight: 900;
     color: #b8a98a;
     font-family: 'Cinzel', serif;
-    text-shadow:
-        2px 2px 0 rgba(0, 0, 0, 0.8);
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
     margin-bottom: 0.3rem;
 }
 
@@ -918,8 +892,7 @@ body {
     padding: 0.5rem 1rem;
     border-radius: 6px;
     border: 2px solid #4a4540;
-    box-shadow:
-        inset 2px 2px 4px rgba(0, 0, 0, 0.6),
+    box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.6),
         inset -1px -1px 2px rgba(100, 90, 80, 0.2);
     margin-bottom: 1rem;
     /* Added spacing for desktop */
@@ -1000,8 +973,7 @@ body {
     color: #6a5a4a;
     border: 2px solid #3a3530;
     border-radius: 8px;
-    box-shadow:
-        inset 2px 2px 4px rgba(0, 0, 0, 0.6),
+    box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.6),
         0 4px 8px rgba(0, 0, 0, 0.5);
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
     font-weight: 800;
@@ -1036,12 +1008,10 @@ body {
     background: linear-gradient(135deg, #3a3530 0%, #2a2520 50%, #3a3530 100%);
     border: 2px solid var(--gold);
     color: var(--gold);
-    box-shadow:
-        inset 0 0 20px rgba(212, 175, 55, 0.1),
+    box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.1),
         0 0 20px rgba(212, 175, 55, 0.4),
         0 4px 12px rgba(0, 0, 0, 0.6);
-    text-shadow:
-        1px 1px 3px rgba(0, 0, 0, 0.9),
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9),
         0 0 10px rgba(212, 175, 55, 0.6);
 }
 
@@ -1107,8 +1077,7 @@ body {
 
 .cta-button.add-to-cart:active {
     transform: scale(0.98);
-    box-shadow:
-        inset 0 0 15px rgba(212, 175, 55, 0.2),
+    box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.2),
         0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
@@ -1175,8 +1144,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background:
-        linear-gradient(to bottom, #000000 0%, transparent 15%),
+    background: linear-gradient(to bottom, #000000 0%, transparent 15%),
         /* Top Black Gradient */
         linear-gradient(to top, #000000 0%, transparent 15%),
         /* Bottom Black Gradient */
@@ -1205,8 +1173,7 @@ body {
     font-size: 3.5rem;
     color: var(--gold);
     margin-bottom: 5rem;
-    text-shadow:
-        2px 2px 4px rgba(0, 0, 0, 0.9),
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9),
         0 0 20px rgba(212, 175, 55, 0.4);
     letter-spacing: 0.05em;
 }
@@ -1245,8 +1212,7 @@ body {
     /*background-image: url('/assets/CartaBruciataNera.png');*/
     background-size: cover;
     background-position: center;
-    box-shadow:
-        5px 5px 10px rgba(0, 0, 0, 0.5),
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5),
         -3px -3px 8px rgba(124, 124, 124, 0.3);
     border-radius: 40px;
     transition: 0.5s;
@@ -1278,8 +1244,7 @@ body {
 
 /* DNS-Template style hover with golden glow */
 .process-step-main:hover {
-    box-shadow:
-        0 0 20px var(--gold),
+    box-shadow: 0 0 20px var(--gold),
         5px 5px 10px rgba(0, 0, 0, 0.5),
         -3px -3px 8px rgba(124, 124, 124, 0.3);
     transition: 0.5s;
@@ -1299,8 +1264,7 @@ body {
     font-size: 1.8rem;
     color: var(--gold);
     margin-bottom: 0.5rem;
-    text-shadow:
-        2px 2px 4px rgba(0, 0, 0, 0.9),
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9),
         0 0 15px rgba(212, 175, 55, 0.4);
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -2403,8 +2367,7 @@ body {
     left: 0;
     right: 0;
     height: 50px;
-    background:
-        radial-gradient(ellipse at 30% 100%, var(--lava-orange) 0%, var(--lava-red) 30%, transparent 60%),
+    background: radial-gradient(ellipse at 30% 100%, var(--lava-orange) 0%, var(--lava-red) 30%, transparent 60%),
         radial-gradient(ellipse at 70% 100%, var(--lava-red) 0%, rgba(139, 30, 0, 0.8) 30%, transparent 60%),
         linear-gradient(0deg, rgba(255, 80, 0, 0.4) 0%, transparent 100%);
     opacity: 0.7;
@@ -3980,8 +3943,7 @@ body {
     border-radius: 4px;
 
     /* Depth & Shadow */
-    box-shadow:
-        0 10px 20px rgba(0, 0, 0, 0.6),
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6),
         inset 0 0 10px rgba(0, 0, 0, 0.8);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 
@@ -3993,8 +3955,7 @@ body {
 
 .relic-scroll-btn:hover {
     transform: translateY(-2px) scale(1.05);
-    box-shadow:
-        0 15px 30px rgba(0, 0, 0, 0.7),
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7),
         inset 0 0 15px rgba(212, 175, 55, 0.2);
     color: #ffd700;
     outline-color: #ffd700;
@@ -4029,8 +3990,7 @@ body {
     border-radius: 4px;
 
     /* Depth & Shadow */
-    box-shadow:
-        0 10px 20px rgba(0, 0, 0, 0.6),
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6),
         inset 0 0 10px rgba(0, 0, 0, 0.8);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 
@@ -4042,8 +4002,7 @@ body {
 
 .relic-scroll-btn-outside:hover {
     transform: translateY(-2px) scale(1.05);
-    box-shadow:
-        0 15px 30px rgba(0, 0, 0, 0.7),
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7),
         inset 0 0 15px rgba(212, 175, 55, 0.2);
     color: #ffd700;
     outline-color: #ffd700;
