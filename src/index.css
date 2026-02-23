@@ -27,9 +27,7 @@
   --spacing-xl: 8rem;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+
 
 * {
   box-sizing: border-box;
